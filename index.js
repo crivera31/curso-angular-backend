@@ -9,16 +9,14 @@ const app = express();/**crear el servidor express */
 /**el use es in middleware, q es un funcion q se va a ejutar para todas las lineas q se ejecuta debajo */
 app.use(cors()) /**config. cors */
 
+app.use(express.json()); /**lectura y parseo del body */
+
 /**llamando a dbconection */
 dbConnection();
 
 /**rutas */
-app.get('/', (request, response) => {
-  response.json({
-    ok: true,
-    msg: 'probando ruta'
-  });
-});
+app.use('/api/usuarios', require('./routes/usuarios'));
+app.use('/api/login', require('./routes/auth'));
 
 /*iniciar el servidor*/
 /**port: 3000 */
