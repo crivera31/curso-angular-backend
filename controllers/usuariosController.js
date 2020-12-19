@@ -6,10 +6,20 @@ const { generarJWT } = require('../helpers/jwt');
 const Usuario = require('../models/usuario')
 
 const getUsuarios = async(req, res) => {
-  const lstUsuarios = await Usuario.find({enabled: '1'},'nombre email role enabled google');
+  const desde = Number(req.query.desde) || 0;
+
+  // const lstUsuarios = await Usuario.find({enabled: '1'},'nombre email role enabled google').skip(desde).limit(5);
+  // const total_reg = await Usuario.count();
+
+  const [ usuarios, total_reg ] = await Promise.all([
+    Usuario.find({enabled: '1'},'nombre email role foto enabled google').skip(desde).limit(5),
+    Usuario.countDocuments()
+  ]);
+
   res.json({
     ok: true,
-    usuarios: lstUsuarios
+    usuarios,
+    total_reg
     // uid: req.uid
   });
 }
@@ -32,9 +42,10 @@ const crearUsuario = async(req, res = response) => {
     const salt = bcrypt.genSaltSync();
     usuario.password = bcrypt.hashSync(password, salt);
 
-    await usuario.save(); /**es una promesa, puede q lo haga rapido o demore */
     /**generar token JWT */
-    const token = await generarJWT(usuario.id)
+    const token = await generarJWT(usuario.id);
+    
+    await usuario.save(); /**es una promesa, puede q lo haga rapido o demore */
 
     res.json({
       ok: true,

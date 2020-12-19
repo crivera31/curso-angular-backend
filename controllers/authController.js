@@ -12,7 +12,7 @@ const login = async(req, res = response) => {
     if (!usuarioDB) {
       return res.status(400).json({
         ok: false,
-        msg: 'Email no encontrado.'
+        msg: 'El usuario no existe.' /**Email no encontrado. */
       });
     }
 
@@ -21,7 +21,7 @@ const login = async(req, res = response) => {
     if (!validPassword) {
       return res.status(400).json({
         ok: false,
-        msg: 'Contraseña no válida.'
+        msg: 'La contraseña no es válida.'
       });
     }
 
@@ -30,7 +30,7 @@ const login = async(req, res = response) => {
 
     res.json({
       ok: true,
-      msg: 'login',
+      msg: 'Usuario '+usuarioDB.email+' autenticado.',
       token
     });
     
