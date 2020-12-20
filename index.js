@@ -14,6 +14,10 @@ app.use(express.json()); /**lectura y parseo del body */
 /**llamando a dbconection */
 dbConnection();
 
+/**directorio publico */
+app.use(express.static('public'));
+
+
 /**rutas */
 app.use('/api/usuarios', require('./routes/usuarios'));
 app.use('/api/login', require('./routes/auth'));

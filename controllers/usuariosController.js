@@ -7,6 +7,7 @@ const Usuario = require('../models/usuario')
 
 const getUsuarios = async(req, res) => {
   const desde = Number(req.query.desde) || 0;
+  /**si en la url no ponen DESDE http://localhost:3005/api/usuarios toma de 0 y arroja 5 filas */
 
   // const lstUsuarios = await Usuario.find({enabled: '1'},'nombre email role enabled google').skip(desde).limit(5);
   // const total_reg = await Usuario.count();
