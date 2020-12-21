@@ -59,7 +59,7 @@ const crearUsuario = async(req, res = response) => {
     console.log(error)
     res.status(500).json({
       ok: false,
-      msg: 'Error inesperado... revisar logs!'
+      msg: 'Error al crear usuario.'
     })
   }
 }
@@ -101,6 +101,7 @@ const actualizarUsuario = async(req, res = response) => {
 
     res.json({
       ok: true,
+      msg: 'Se actualizó el usuario correctamente.',
       usuario: usuarioActualizado
     });
 
@@ -108,7 +109,7 @@ const actualizarUsuario = async(req, res = response) => {
     console.log(error);
     res.status(500).json({
       ok: false,
-      msg: 'Error inesperado!'
+      msg: 'Error al actualizar usuario'
     })
   }
 }
@@ -142,7 +143,7 @@ const borrarUsuario = async(req, res = response) => {
   } catch (error) {
     res.status(500).json({
       ok: false,
-      msg: 'error al borrar...' 
+      msg: 'error al borrar usuario.' 
     });
   }
 }

@@ -8,11 +8,11 @@ const login = async(req, res = response) => {
   const { email, password } = req.body;
   try {
     /**verificar email */
-    const usuarioDB = await Usuario.findOne({email});
+    const usuarioDB = await Usuario.findOne({enabled: '1', email});
     if (!usuarioDB) {
       return res.status(400).json({
         ok: false,
-        msg: 'El usuario no existe.' /**Email no encontrado. */
+        msg: 'El usuario no existe.' /**usuario deshabilitado*/
       });
     }
 
@@ -84,7 +84,18 @@ const googleSingIn = async(req, res = response) => {
     });
   }
 }
+
+const renewToken = async(req, res = response) => {
+  /**generar nuevo token */
+  const uid = req.uid;
+  const token = await generarJWT(uid);
+  res.json({
+    ok: true,
+    token
+  })
+}
 module.exports = {
   login,
-  googleSingIn
+  googleSingIn,
+  renewToken
 }
