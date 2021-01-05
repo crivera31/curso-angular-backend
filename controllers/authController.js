@@ -45,7 +45,6 @@ const login = async(req, res = response) => {
 
 const googleSingIn = async(req, res = response) => {
   const googleToken = req.body.token;
-
   try {
     const { name, email, picture } = await googleVerify(googleToken);
 
@@ -74,7 +73,7 @@ const googleSingIn = async(req, res = response) => {
 
     res.json({
       ok: true,
-      msg: 'Google Sing-In',
+      // msg: 'Google Sing-In',
       token
     });
   } catch (error) {
@@ -89,9 +88,20 @@ const renewToken = async(req, res = response) => {
   /**generar nuevo token */
   const uid = req.uid;
   const token = await generarJWT(uid);
+  /**obtener el usuario por UID */
+  const usuario = await Usuario.findById(uid);
+  /**por si el usuario esta deshabilitado */
+  if (usuario.enabled != 1) {
+    return res.status(400).json({
+      ok: false,
+      msg: 'El usuario no existe.' /**usuario deshabilitado*/
+    });
+  }
+
   res.json({
     ok: true,
-    token
+    token,
+    usuario
   })
 }
 module.exports = {
