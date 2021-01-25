@@ -46,7 +46,10 @@ const searchColeccion = async(req, res = response) => {
         msg: 'La tabla tiene que ser usuarios/medicos/hospitales.'
       });
     }
-      res.json({ ok: true, resultados: data });
+      res.json({
+        ok: true,
+        resultados: data
+      });
 }
 
 module.exports = {

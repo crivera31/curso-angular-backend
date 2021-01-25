@@ -22,6 +22,7 @@ const HospitalSchema = Schema({
 /**modificando _id, _v1 */
 HospitalSchema.method('toJSON', function() {
   const { __v, ...object } = this.toObject();
+  // object.uid = _id;
   return object;
 })
 

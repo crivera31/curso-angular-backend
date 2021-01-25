@@ -2,7 +2,7 @@ const { response } = require('express');
 const Medico = require('../models/medico');
 
 const getMedicos = async(req, res = response) => {
-  const medicos = await Medico.find({enabled: '1'}).populate('usuario', 'nombre').populate('hospital', 'nombre');
+  const medicos = await Medico.find({enabled: '1'}).populate('usuario', 'nombre foto').populate('hospital', 'nombre foto');
   res.json({
     ok: true,
     medicos
@@ -60,7 +60,7 @@ const actualizarMedico = async (req, res = response) => {
     res.json({
       ok: true,
       msg: "Se actualizó correctamente.",
-      hopsital: medicoActualizado,
+      medico: medicoActualizado,
     });
   } catch (error) {
     console.log(error);
@@ -104,7 +104,24 @@ const borrarMedico = async (req, res = response) => {
   }
 }
 
+const obtenerMedicoPorId = async (req, res = response) => {
+  const id = req.params.id;
+
+  try {
+    const medico = await Medico.findById(id).populate('usuario', 'nombre foto').populate('hospital', 'nombre foto');
+    res.json({
+      ok: true,
+      medico
+    });
+  } catch (error) {
+    console.log(error)
+    res.json({
+      ok: false,
+      'msg': 'Médico no encontrado.'
+    });
+  } 
+}
 
 module.exports = {
-  getMedicos, crearMedico, actualizarMedico, borrarMedico
+  getMedicos, crearMedico, actualizarMedico, borrarMedico, obtenerMedicoPorId
 }

@@ -34,6 +34,7 @@ const UsuarioSchema = Schema({
 
 /**modificando _id, _v1 */
 UsuarioSchema.method('toJSON', function() {
+  /**107, mongo usa _id por defecto */
   const { __v, _id,password, ...object } = this.toObject();
   object.uid = _id;
   return object;
@@ -41,6 +42,6 @@ UsuarioSchema.method('toJSON', function() {
 
 
 /**implementamos el modelo
- * exponer hacia fuero para usarlo
+ * exponer hacia fuera para usarlo
  */
 module.exports = model('Usuario', UsuarioSchema)
