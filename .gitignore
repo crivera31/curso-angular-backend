@@ -1,4 +1,5 @@
 node_modules/
+
 uploads/hospitales/**.jpg
 uploads/hospitales/**.png
 
@@ -6,4 +7,4 @@ uploads/medicos/**.jpg
 uploads/medicos/**.png
 
 uploads/usuarios/**.jpg
-uploads/hospitales/**.png
+uploads/usuarios/**.png
