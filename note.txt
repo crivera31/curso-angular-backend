@@ -2,3 +2,8 @@ id cliente
 497661797108-1bodlmfnetbjuvtludc8qu3rp9jg8dcj.apps.googleusercontent.com
 secreto cliente
 LNGUregbEdWqsBtey3_YYbsm
+
+
+test_prueba@hotmail.com user
+admin
+dicori31
