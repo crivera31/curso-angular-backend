@@ -21,6 +21,15 @@ const UsuarioSchema = Schema({
   foto: {
     type: String
   },
+  myIP: {
+    type: String
+  },
+  pais: {
+    type: String
+  },
+  codePais: {
+    type: String
+  },
   role: {
     type: String,
     required: true,

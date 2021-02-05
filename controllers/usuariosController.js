@@ -1,6 +1,10 @@
 const { response } = require('express');
 const bcrypt = require('bcryptjs');
+const publicIp = require('public-ip');
+const ip2loc = require("ip2location-nodejs");
 const { generarJWT } = require('../helpers/jwt');
+
+ip2loc.IP2Location_init("./IP2LOCATION-LITE-DB1.BIN");
 
 /**importando mis modelos */
 const Usuario = require('../models/usuario')
@@ -38,10 +42,15 @@ const crearUsuario = async(req, res = response) => {
       });
     }
 
+    const ip = await publicIp.v4();
+
     const usuario = new Usuario(req.body)
     /**encriptar contraseña */
     const salt = bcrypt.genSaltSync();
     usuario.password = bcrypt.hashSync(password, salt);
+    usuario.myIP = ip;
+    usuario.pais = ip2loc.IP2Location_get_all(ip).country_short;
+    usuario.codePais = ip2loc.IP2Location_get_all(ip).country_long;
 
     /**generar token JWT */
     const token = await generarJWT(usuario.id);
